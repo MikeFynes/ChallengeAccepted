@@ -1,6 +1,9 @@
 package fi.metropolia.challengedemo;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,8 +12,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -19,7 +26,7 @@ import android.widget.Toast;
 /**
  * Created by mike on 18/11/2014.
  */
-public class TabChallenge extends Fragment  {
+public class TabChallenge extends Fragment implements OnItemSelectedListener  {
     LinearLayout myView;
     TableLayout tableLayout;
     Button btnChallenge;
@@ -56,12 +63,23 @@ public class TabChallenge extends Fragment  {
             )
             ;
         
+        Spinner spinner = (Spinner) myView.findViewById(R.id.user_spinner);
+        
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, readUsersFromDataBase());
+        
+        
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+        
+        
         return myView;
     }
     
     
+ 
     
-    public void readUsersFromDataBase(){
+    
+    public List<String> readUsersFromDataBase(){
 
         // FINDS TABLE LAYOUT
         tableLayout = (TableLayout)myView.findViewById(R.id.user_list);
@@ -69,9 +87,16 @@ public class TabChallenge extends Fragment  {
         
        int numRows = ((MainActivity)getActivity()).getUsersList().size();
   
-        
+       List<String> userSpinnerArray = new ArrayList<String>();
+       for(int i=0; i< numRows; i++){
+    	   final String dbUser = ((MainActivity)getActivity()).getUsersList().get(i).getName();
+    	   userSpinnerArray.add(dbUser);
+       }
        
-        // outer for loop
+       return userSpinnerArray;
+       
+       
+       /* // outer for loop
         for (int i=0; i< numRows; i++) {
         	Context context = getActivity();
             final TableRow row = new TableRow(context);
@@ -82,12 +107,20 @@ public class TabChallenge extends Fragment  {
             row.setBackgroundColor(getResources().getColor(R.color.blue));
             row.setPadding(1, 1, 1, 1);
 
+            
+            
+            
+
+            
+            
+            
             // USERNAME COLUMN
             TextView tv1 = new TextView(context);
             tv1.setTextSize(40);
             tv1.setPadding(25, 0, 25, 0);
             
      
+            
             
 
 
@@ -122,7 +155,7 @@ public class TabChallenge extends Fragment  {
             tableLayout.addView(row);
             tableLayout.addView(rowGap);
             
-        }
+        }*/
 
 
 
@@ -233,6 +266,39 @@ public class TabChallenge extends Fragment  {
 	public void setChallengeToSend(int challengeToSend) {
 		this.challengeToSend = challengeToSend;
 	}
+
+
+
+
+
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View v, int position,
+			long id) {
+		// 
+		String selectedUser =  parent.getItemAtPosition(position).toString();
+		int numRows = ((MainActivity)getActivity()).getUsersList().size();
+		for(int i = 0; i < numRows; i++){
+			String dbName =  ((MainActivity)getActivity()).getUsersList().get(i).getName();
+			int userId = ((MainActivity)getActivity()).getUsersList().get(i).getId();
+			if(selectedUser.contentEquals(dbName)){
+				setUserToChallenge(userId);
+			}
+		}
+		
+	}
+
+
+
+
+
+	@Override
+	public void onNothingSelected(AdapterView<?> parent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
     
 	
     

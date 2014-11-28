@@ -1,0 +1,242 @@
+package fi.metropolia.challengedemo;
+
+
+import android.app.Fragment;
+import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+/**
+ * Created by mike on 18/11/2014.
+ */
+public class TabChallenge extends Fragment  {
+    LinearLayout myView;
+    TableLayout tableLayout;
+    Button btnChallenge;
+    
+    int userToChallenge, challengeToSend;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        myView = (LinearLayout) inflater.inflate(R.layout.tab_challenges, container, false);
+        
+        readUsersFromDataBase();
+        readChallengesFromDataBase();
+        
+        btnChallenge = (Button) myView.findViewById(R.id.btnChallenge);
+        btnChallenge.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                public void onClick(View v) {
+                	  if(userToChallenge != 0){
+                		  if(challengeToSend !=0){
+                			  ((MainActivity) getActivity()).sendChallenge(userToChallenge, challengeToSend);
+                    		  Toast.makeText(myView.getContext(), "CHALLENGE SENT!", Toast.LENGTH_LONG).show();  
+                		  }
+                		  else{
+                			  Toast.makeText(myView.getContext(), "No Challenge Selected", Toast.LENGTH_LONG).show();
+                		  }
+                	  }
+                	  else{
+                		  Toast.makeText(myView.getContext(), "No User Selected", Toast.LENGTH_LONG).show();
+                	  }
+                	  
+                	  
+                
+                    
+                } }
+            )
+            ;
+        
+        return myView;
+    }
+    
+    
+    
+    public void readUsersFromDataBase(){
+
+        // FINDS TABLE LAYOUT
+        tableLayout = (TableLayout)myView.findViewById(R.id.user_list);
+
+        
+       int numRows = ((MainActivity)getActivity()).getUsersList().size();
+  
+        
+       
+        // outer for loop
+        for (int i=0; i< numRows; i++) {
+        	Context context = getActivity();
+            final TableRow row = new TableRow(context);
+            TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+            row.setLayoutParams(params);
+            row.setGravity(Gravity.CENTER | Gravity.BOTTOM);
+            row.setBackgroundColor(getResources().getColor(R.color.blue));
+            row.setPadding(1, 1, 1, 1);
+
+            // USERNAME COLUMN
+            TextView tv1 = new TextView(context);
+            tv1.setTextSize(40);
+            tv1.setPadding(25, 0, 25, 0);
+            
+     
+            
+
+
+            final String dbUser = ((MainActivity)getActivity()).getUsersList().get(i).getName();
+            tv1.setText(dbUser);
+          
+            final int userId = ((MainActivity)getActivity()).getUsersList().get(i).getId();
+            row.setBackgroundDrawable(getResources().getDrawable(R.drawable.selection_changer));
+            row.addView(tv1);
+          
+            
+            row.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                public void onClick(View v) {
+                	setUserToChallenge(userId);
+                
+                	  
+                
+                    
+                } }
+            )
+            ;
+            
+
+            TableRow rowGap = new TableRow(context);
+
+            rowGap.setLayoutParams(params);
+            rowGap.setGravity(Gravity.CENTER | Gravity.BOTTOM);
+            rowGap.setBackgroundColor(getResources().getColor(R.color.white));
+            rowGap.setPadding(1, 1, 1, 1);
+
+            tableLayout.addView(row);
+            tableLayout.addView(rowGap);
+            
+        }
+
+
+
+
+
+
+        }
+
+    
+    public void readChallengesFromDataBase(){
+
+    	
+    	   	
+    	 // FINDS TABLE LAYOUT
+        tableLayout = (TableLayout)myView.findViewById(R.id.challenge_list);
+
+        
+       int numRows = ((MainActivity)getActivity()).getChallengesList().size();
+  
+        
+       
+        // outer for loop
+        for (int i=0; i< numRows; i++) {
+        	Context context = getActivity();
+            final TableRow row = new TableRow(context);
+            TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+            row.setLayoutParams(params);
+            row.setGravity(Gravity.CENTER | Gravity.BOTTOM);
+            row.setBackgroundColor(getResources().getColor(R.color.blue));
+            row.setPadding(1, 1, 1, 1);
+
+            // Challenge Name COLUMN
+            TextView tv1 = new TextView(context);
+            tv1.setTextSize(40);
+            tv1.setPadding(25, 0, 25, 0);
+            
+            // Points COLUMN
+            TextView tv2 = new TextView(context);
+            tv2.setTextSize(40);
+            tv2.setPadding(25, 0, 25, 0);
+                 
+            
+
+
+            final String dbChall = ((MainActivity)getActivity()).getChallengesList().get(i).getName();
+            tv1.setText(dbChall);
+            
+            final String points = Integer.toString(((MainActivity)getActivity()).getChallengesList().get(i).getPoints());
+          tv2.setText(points);
+            final int dbchallId = ((MainActivity)getActivity()).getChallengesList().get(i).getId();
+            row.setBackgroundDrawable(getResources().getDrawable(R.drawable.selection_changer));
+            row.addView(tv1);
+          
+            
+            row.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                public void onClick(View v) {
+                	  setChallengeToSend(dbchallId);
+                
+                	  
+                
+                    
+                } }
+            )
+            ;
+            
+
+            TableRow rowGap = new TableRow(context);
+
+            rowGap.setLayoutParams(params);
+            rowGap.setGravity(Gravity.CENTER | Gravity.BOTTOM);
+            rowGap.setBackgroundColor(getResources().getColor(R.color.white));
+            rowGap.setPadding(1, 1, 1, 1);
+
+            tableLayout.addView(row);
+            tableLayout.addView(rowGap);
+            
+        }
+
+
+
+
+
+
+        }
+
+
+
+	public int getUserToChallenge() {
+		return userToChallenge;
+	}
+
+
+
+	public void setUserToChallenge(int userToChallenge) {
+		this.userToChallenge = userToChallenge;
+	}
+
+
+
+	public int getChallengeToSend() {
+		return challengeToSend;
+	}
+
+
+
+	public void setChallengeToSend(int challengeToSend) {
+		this.challengeToSend = challengeToSend;
+	}
+    
+	
+    
+}
+
+
+

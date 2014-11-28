@@ -28,7 +28,7 @@ public class AsyncCompleteChallenge extends AsyncTask<Integer, Integer, String> 
     protected String doInBackground(Integer... params) {
         // TODO Auto-generated method stub
     	setUserId(params[0]);
-    	String method = "challengeUser";
+    	String method = "completeChallenge";
         postData(method);
         
         

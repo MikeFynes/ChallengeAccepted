@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.internal.QuickAccess">
-		<item value="1440" key="dialogWidth"/>
-		<item value="850" key="dialogHeight"/>
+		<item value="1260" key="dialogWidth"/>
+		<item value="737" key="dialogHeight"/>
 		<list key="orderedProviders">
-			<item value="org.eclipse.ui.commands"/>
 		</list>
 		<list key="textArray">
-			<item value="show line"/>
 		</list>
 		<list key="orderedElements">
-			<item value="org.eclipse.ui.editors.lineNumberToggle"/>
 		</list>
 		<list key="textEntries">
-			<item value="1"/>
 		</list>
 	</section>
 	<section name="NewWizardAction">

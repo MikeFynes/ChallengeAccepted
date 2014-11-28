@@ -52,6 +52,8 @@ public class TabMyChallenges extends Fragment{
                 btn_complete.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                     	((MainActivity) getActivity()).completeChallenge(userEntry);
+                    	myView.invalidate();
+                    	
                         
                     }
                 });
@@ -66,6 +68,7 @@ public class TabMyChallenges extends Fragment{
                     public void onClick(View v) {
                     	int response = 1;
                     	((MainActivity) getActivity()).challengeResponse(userEntry, response);
+                    	
                     }
                 });
                 Button btn_decline = new Button(getActivity());

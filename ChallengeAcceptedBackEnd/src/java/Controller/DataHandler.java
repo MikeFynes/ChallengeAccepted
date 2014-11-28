@@ -90,6 +90,7 @@ public class DataHandler implements Serializable{
 
         user.setCurrentChallenge(0);
         user.setChallengeActive(false);
+        user.setNotified(false);
         int currentTotalPoints = user.getTotalPoints();
         
 

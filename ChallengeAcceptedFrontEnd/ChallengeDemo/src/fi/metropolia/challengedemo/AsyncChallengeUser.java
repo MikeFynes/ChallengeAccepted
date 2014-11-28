@@ -29,7 +29,7 @@ public class AsyncChallengeUser extends AsyncTask<Integer, Integer, String> {
         // TODO Auto-generated method stub
     	setUserId(params[0]);
     	setChallId(params[1]);
-    	String method = "completeChallenge";
+    	String method = "challengeUser";
         postData(method);
         
         
@@ -90,8 +90,15 @@ public class AsyncChallengeUser extends AsyncTask<Integer, Integer, String> {
             // Execute HTTP Post Request
             HttpResponse response = httpclient.execute(httppost);
             Log.d("HTTP POST", "SENT THE POST");
-
-            
+           
+            Header reply = response.getFirstHeader("backEnd") ;
+            if(reply !=null){
+            String postReply = reply.getValue();
+            Log.d("HTTP RESPONSE",  postReply);
+            }
+            else{
+            	Log.d("HTtP RESPONSE", "NO RESPONSE HEADERS");
+            }
             
 
 
