@@ -75,7 +75,7 @@ public class HandlerServlet extends HttpServlet {
             throws ServletException, IOException {
     //    setMsg(request.getParameter("test"));
 //      check  = control.isDataChecker();
-        response.setContentLength(32);
+     //   response.setContentLength(32);
         response.setContentType("text/html");
         control = new ControlBean();
         String method = request.getParameter("method");
@@ -156,13 +156,14 @@ public class HandlerServlet extends HttpServlet {
            
            dataHandler.challengeUser();
            response.addHeader("backEnd", "SUCCESS!");
-               response.addHeader("trueStory", "Challenge Accepted");
+               response.addHeader("trueStory", "Challenge SENT");
            }
        
        else if(method.contentEquals("checkIfChallenged")){
            response.addHeader("backEnd", "SUCCESS!");
            dataHandler.setuId(Integer.parseInt(request.getParameter("User")));
            dataHandler.challengeChecker();
+           
            
            String userName = dataHandler.getUserName();
            response.addHeader("challChecker", "challChecker");
@@ -176,6 +177,20 @@ public class HandlerServlet extends HttpServlet {
            dataHandler.completeChallenge();
            response.addHeader("completed", "Challenge Completed");
 
+       }
+       else if(method.contentEquals("challengeResponse")){
+             response.addHeader("backEnd", "SUCCESS!");
+           if(request.getParameter("status").contentEquals("1")){
+               dataHandler.setuId(Integer.parseInt(request.getParameter("User")));
+               dataHandler.challengeAccepter();
+               response.addHeader("trueStory", "Challenge ACCEPTED");
+           }
+           else{
+               dataHandler.challengeRejecter();
+               response.addHeader("trueStory", "Challenge REJECTED");
+           }
+          
+               
        }
        else{
            

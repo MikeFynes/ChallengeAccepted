@@ -1,0 +1,528 @@
+package fi.metropolia.challengedemo;
+
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+
+public class Start extends Activity implements View.OnClickListener, AsyncResponse{
+
+    AsyncGetUsers asyncUserGrab  =new AsyncGetUsers();
+    AsyncGetChallenges asyncChallengeGrab = new AsyncGetChallenges();
+    
+    List<Users> usersList;
+    List<Challenges> challengesList;
+   
+    View myView;
+    ImageButton btn_One, btn_Two;
+    private int user, loopCounter;
+    TableLayout tableLayout;
+    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_start);
+        asyncUserGrab.listener = this;
+        asyncChallengeGrab.listener = this;
+
+        
+        
+        asyncUserGrab.execute("allUsers");
+        usersList = new ArrayList<Users>();
+        
+        asyncChallengeGrab.getChallengesList();
+        challengesList = new ArrayList<Challenges>();
+        
+        try {
+        	 usersList = asyncUserGrab.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        try{
+        	challengesList = asyncChallengeGrab.get();
+        }
+        catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        Users sUser = getUsersList().get(1);
+        Log.d("START PAGE USER 1","USER NAME: " +sUser.getName());
+        
+        readUsersFromDataBase();
+        
+        
+  //      new MyAsyncTask().execute("allChallenges");
+    //    challengesList = new ArrayList<Challenges>();
+      //  challengesList = asyncTask.getChallengesList();
+        
+        // LOADS USERS FROM ARRAY AND ITERATES OUT AS CLICKABLE ROWS
+        
+        
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.start, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+ 
+    public void startSecondAct() {
+    	
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("userID", user);
+        startActivity(intent);
+
+    }
+
+
+    public int getUser() {
+        
+    	
+    	return user;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
+    }
+
+
+	@Override
+	public void userGrabber(List<Users> output) {
+		// TODO Auto-generated method stub
+		usersList = output;
+	}
+
+
+	@Override
+	public void challengeGrabber(List<Challenges> output) {
+		challengesList = output;
+		
+	}
+
+    public Boolean checkIfChallenged(int userEntry){
+    	Boolean isActive = usersList.get(userEntry).isChallengeActive();
+        return isActive;
+    }
+    public Boolean checkIfNotified(int userEntry){
+    	Boolean isNotified = usersList.get(userEntry).isNotified();
+        return isNotified;
+    }
+    public String checkChallName(int userEntry){
+    	int challengeId =  usersList.get(userEntry).getCurrentChallenge();
+    	String challengeDesc = challengesList.get(challengeId).getDescription();
+        return challengeDesc;
+    }
+    public String checkChallDesc(int userEntry){
+   //     String sendChallDesc = asyncTask.getChallDesc();
+        return "DESCRIPTION";
+    }
+
+
+    public List<Users> getUsersList(){
+    	
+    	return usersList;
+    }
+    
+    
+    
+    
+    
+    public int getLoopCounter() {
+		return loopCounter;
+	}
+
+
+	public void setLoopCounter(int loopCounter) {
+		this.loopCounter = loopCounter;
+	}
+
+
+	public void readUsersFromDataBase(){
+
+        // FINDS TABLE LAYOUT
+        tableLayout = (TableLayout)findViewById(R.id.user_list);
+
+
+       int numRows = usersList.size();
+  
+        
+       
+        // outer for loop
+        for (int i=0; i< numRows; i++) {
+        	
+            TableRow row = new TableRow(this);
+            TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+            row.setLayoutParams(params);
+            row.setGravity(Gravity.CENTER | Gravity.BOTTOM);
+            row.setBackgroundColor(getResources().getColor(R.color.blue));
+            row.setPadding(1, 1, 1, 1);
+
+            // USERNAME COLUMN
+            TextView tv1 = new TextView(this);
+            tv1.setTextSize(40);
+            tv1.setPadding(25, 0, 25, 0);
+            
+     
+            
+
+
+            final String dbUser = usersList.get(i).getName();
+            tv1.setText(dbUser);
+          
+            final int userPosition = i;
+            row.addView(tv1);
+          
+            
+            row.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                public void onClick(View v) {
+                	setUser(userPosition);
+                	Log.d("USER ID SELECTED", Integer.toString(userPosition));
+                    
+                    startSecondAct();
+                } }
+            )
+            ;
+            
+
+            TableRow rowGap = new TableRow(this);
+
+            rowGap.setLayoutParams(params);
+            rowGap.setGravity(Gravity.CENTER | Gravity.BOTTOM);
+            rowGap.setBackgroundColor(getResources().getColor(R.color.white));
+            rowGap.setPadding(1, 1, 1, 1);
+
+            tableLayout.addView(row);
+            tableLayout.addView(rowGap);
+            
+        }
+
+
+
+
+
+
+        }
+    
+ 
+
+
+
+   /* // INNER CLASS EXECUTES POST TASKS ASYNCHRONOUSLY TO ENSURE MAIN ACTIVITY DOES NOT CRASH
+    // DATA IS PASSED BACK THROUGH INTERFACE
+    private class MyAsyncTask extends AsyncTask<String, Integer, Double> {
+        public AsyncResponse delegate=null;
+        private int userId, totalPoints, currentChallenge, challId, challPoints;
+        private String userName, challName, challDesc, accepted;
+        private Boolean active, notified;
+        List<Users> usersList;
+        List<Challenges> challengesList;
+
+        @Override
+        protected Double doInBackground(String... params) {
+            // TODO Auto-generated method stub
+
+            postData(params[0]);
+      
+            return null;
+        }
+
+        protected void onPostExecute(String result) {
+            delegate.processFinish(result);
+        }
+
+
+
+
+        public void postData(String valueIWantToSend) {
+            // Create a new HttpClient and Post Header
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(
+                    "http://10.0.2.2:8080/ChallengeAcceptedBackEnd/HandlerServlet");
+            Log.d("HTTP POST", "I CREATED A POST");
+            Log.d("HTTP POST", valueIWantToSend);
+            try {
+                // Add your data
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("method",
+                        valueIWantToSend));
+                if(valueIWantToSend.contentEquals("challengeUser")){
+                    nameValuePairs.add(new BasicNameValuePair("User", "2"));
+                    nameValuePairs.add(new BasicNameValuePair("Challenge", "2" ));
+                }
+                else if (valueIWantToSend.contentEquals("checkIfChallenged")){
+
+                    nameValuePairs.add(new BasicNameValuePair("User", "1"));
+                }
+                else if (valueIWantToSend.contentEquals("completeChallenge"))
+
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                // Execute HTTP Post Request
+                HttpResponse response = httpclient.execute(httppost);
+                Log.d("HTTP POST", "SENT THE POST");
+
+                Header reply = response.getFirstHeader("backEnd") ;
+                if(reply !=null){
+                    String postReply = reply.getValue();
+                    Log.d("HTTP RESPONSE",  postReply);
+
+
+                    if(response.containsHeader("users")){
+                        usersList = new ArrayList<Users>();
+                        for(int i=0; i < Integer.parseInt(response.getFirstHeader("itemCount").getValue()); i++){
+                            userId = Integer.parseInt(response.getFirstHeader("uId"+Integer.toString(i)).getValue());
+                            totalPoints = Integer.parseInt(response.getFirstHeader("uTotPoints"+Integer.toString(i)).getValue());
+                            currentChallenge = Integer.parseInt(response.getFirstHeader("uCurrentChallenge"+Integer.toString(i)).getValue());
+                            userName = response.getFirstHeader("uName"+Integer.toString(i)).getValue();
+                            active = Boolean.valueOf(response.getFirstHeader("uActive"+Integer.toString(i)).getValue());
+                            notified = Boolean.valueOf(response.getFirstHeader("uNotif"+Integer.toString(i)).getValue());
+
+
+                            Users newUser = new Users(userId, totalPoints, currentChallenge, userName, active, notified);
+                            usersList.add(newUser);
+                            Log.d("USERS",   userName +"ID: "
+                                    +Integer.toString(userId) +", Total Points: "
+                                    + Integer.toString(totalPoints) +", CurrentChallengeID: "
+                                    + Integer.toString(currentChallenge) +", Active? "
+                                    + Boolean.toString(active) +", Notified? "
+                                    + Boolean.toString(notified));
+                        }
+
+
+                        Log.d("USERS RECEIVED", response.getFirstHeader("users").getValue());
+
+                    }
+                    else if(response.containsHeader("challenges")){
+                        challengesList = new ArrayList<Challenges>();
+                        for(int i=0; i < Integer.parseInt(response.getFirstHeader("itemCount").getValue()); i++){
+                            challId = Integer.parseInt(response.getFirstHeader("cId"+Integer.toString(i)).getValue());
+                            challName = response.getFirstHeader("cName"+Integer.toString(i)).getValue();
+                            challDesc = response.getFirstHeader("cDesc"+Integer.toString(i)).getValue();
+                            challPoints =Integer.parseInt(response.getFirstHeader("cPoints"+Integer.toString(i)).getValue());
+                            Log.d("CHALLENGES",   challName +" ID "+ Integer.toString(challId) +" DESCRIPTION "+ challDesc + " POINTS " + challPoints );
+
+
+                            Challenges nChallenges = new Challenges(challId, challPoints , challName , challDesc );
+                            challengesList.add(nChallenges);
+
+                        }
+
+                    }
+                    else if(response.containsHeader("challChecker")){
+                        userId = Integer.parseInt(response.getFirstHeader("checkUser").getValue());
+                        active = Boolean.valueOf(response.getFirstHeader("checker").getValue());
+                        Log.d("CHECKER",   userId +" challenge status: "+ Boolean.toString(active));
+                    }
+
+                    else if(response.containsHeader("trueStory")){
+                        accepted = response.getFirstHeader("trueStory").getValue();
+                        Log.d("CAN YOU DO IT?", accepted);
+                    }
+
+
+
+                    else{
+                        Log.d("HTTP RESPONSE", "NO VALID RESPONSE METHOD");
+                    }
+
+
+
+
+                }
+
+
+                else{
+                    Log.d("HTtP RESPONSE", "NO RESPONSE HEADERS");
+
+                }
+
+
+
+
+            } catch (ClientProtocolException e) {
+                // TODO Auto-generated catch block
+            	Log.d("POST FAIL", "NO POST SENT CLIENTPROTOCOL");
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+            	Log.d("POST FAIL", "NO POST SENT IOEXCEPTION");
+            }
+
+
+
+
+
+
+        }
+
+        public Boolean getNotified() {
+            return notified;
+        }
+
+        public void setNotified(Boolean notified) {
+            this.notified = notified;
+        }
+
+        public Boolean getActive() {
+            return active;
+        }
+
+        public void setActive(Boolean active) {
+            this.active = active;
+        }
+
+        public String getChallDesc() {
+            return challDesc;
+        }
+
+        public void setChallDesc(String challDesc) {
+            this.challDesc = challDesc;
+        }
+
+        public String getChallName() {
+            return challName;
+        }
+
+        public void setChallName(String challName) {
+            this.challName = challName;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public int getChallPoints() {
+            return challPoints;
+        }
+
+        public void setChallPoints(int challPoints) {
+            this.challPoints = challPoints;
+        }
+
+        public int getChallId() {
+            return challId;
+        }
+
+        public void setChallId(int challId) {
+            this.challId = challId;
+        }
+
+        public int getCurrentChallenge() {
+            return currentChallenge;
+        }
+
+        public void setCurrentChallenge(int currentChallenge) {
+            this.currentChallenge = currentChallenge;
+        }
+
+        public int getTotalPoints() {
+            return totalPoints;
+        }
+
+        public void setTotalPoints(int totalPoints) {
+            this.totalPoints = totalPoints;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public List<Users> getUsersList() {
+            return usersList;
+        }
+
+        public void setUsersList(List<Users> usersList) {
+            this.usersList = usersList;
+        }
+
+        public List<Challenges> getChallengesList() {
+            return challengesList;
+        }
+
+        public void setChallengesList(List<Challenges> challengesList) {
+            this.challengesList = challengesList;
+        }
+    }
+
+
+
+
+
+
+	@Override
+	public void userGrabber(List<Users> output) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void challengeGrabber(List<Challenges> output) {
+		// TODO Auto-generated method stub
+		
+	}*/
+
+
+
+    	@Override
+    	public void onClick(View v) {
+    		// TODO Auto-generated method stub
+    		
+    	}
+
+}
+
+
+	
+	
+

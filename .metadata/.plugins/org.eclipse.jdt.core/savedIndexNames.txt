@@ -1,0 +1,3 @@
+INDEX VERSION 1.126+Z:\ChallengeAccepted\.metadata\.plugins\org.eclipse.jdt.core
+1109387880.index
+374909669.index

@@ -1,0 +1,5 @@
+package fi.metropolia.challengedemo;
+
+public class AsyncNotified {
+
+}

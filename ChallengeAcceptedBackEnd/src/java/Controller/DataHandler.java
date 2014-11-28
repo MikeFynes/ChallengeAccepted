@@ -118,6 +118,26 @@ public class DataHandler implements Serializable{
         setPoints(selected.getPoints());
     }
     
+        public void challengeAccepter(){
+        AAprojectusers checker = em.find(AAprojectusers.class, uId);
+        checker.setNotified(true);
+        t = em.getTransaction();
+        t.begin();
+        em.merge(checker);
+        t.commit();
+        
+       
+    }
+        public void challengeRejecter(){
+        AAprojectusers checker = em.find(AAprojectusers.class, uId);
+        checker.setChallengeActive(false);
+        checker.setCurrentChallenge(null);
+        t = em.getTransaction();
+        t.begin();
+        em.merge(checker);
+        t.commit();
+        }
+    
     
     
     
@@ -127,14 +147,21 @@ public class DataHandler implements Serializable{
         listChallenges = em.createNamedQuery("AAprojectchallenges.orderByName").getResultList();
         
     }
+            public void listChallengesById(){
+                listChallenges = em.createNamedQuery("AAprojectchallenges.orderById").getResultList();
+            }
+            
     
             public void listUsersByName(){
                 listUsers = em.createNamedQuery("AAprojectusers.orderByName").getResultList();
             }
+            public void listUsersById(){
+                listUsers = em.createNamedQuery("AAprojectusers.orderById").getResultList();
+            }
     
 
     public List<AAprojectchallenges> getListChallenges() {
-        listChallengesByName();
+        listChallengesById();
         return listChallenges;
     }
 
@@ -143,7 +170,7 @@ public class DataHandler implements Serializable{
     }
 
     public List<AAprojectusers> getListUsers() {
-        listUsersByName();
+        listUsersById();
         return listUsers;
     }
 
