@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -22,15 +23,16 @@ import java.util.concurrent.ExecutionException;
 public class Start extends Activity implements View.OnClickListener, AsyncResponse{
 
     AsyncGetUsers asyncUserGrab  =new AsyncGetUsers();
- 
+   
     
     List<Users> usersList;
 
    
     View myView;
     ImageButton btn_One, btn_Two;
-    private int user, loopCounter;
+    private int user;
     TableLayout tableLayout;
+    Button btnAddUser;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +58,23 @@ public class Start extends Activity implements View.OnClickListener, AsyncRespon
 			e.printStackTrace();
 		}
         
-       
+       btnAddUser = (Button) findViewById(R.id.btn_add_user);
+       btnAddUser.setOnClickListener(new View.OnClickListener() {
+           @Override
+         public void onClick(View v) {
+         	
+        	   goToAddUser();
+             
+             ;
+         } }
+     )
+     ;
         
 
         
         readUsersFromDataBase();
         
-        
-  //      new MyAsyncTask().execute("allChallenges");
-    //    challengesList = new ArrayList<Challenges>();
-      //  challengesList = asyncTask.getChallengesList();
-        
-        // LOADS USERS FROM ARRAY AND ITERATES OUT AS CLICKABLE ROWS
+
         
         
     }
@@ -95,11 +102,18 @@ public class Start extends Activity implements View.OnClickListener, AsyncRespon
         return super.onOptionsItemSelected(item);
     }
 
+    
+    public void goToAddUser(){
+    	Intent intent = new Intent(this, AddUserActivity.class);
+    	startActivity(intent);
+    }
  
     public void startSecondAct() {
     	
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("userID", user);
+        Log.d("USER ID SELECTED", Integer.toString(user));
+       
         startActivity(intent);
 
     }
@@ -182,7 +196,7 @@ public class Start extends Activity implements View.OnClickListener, AsyncRespon
                   @Override
                 public void onClick(View v) {
                 	setUser(userPosition);
-                	Log.d("USER ID SELECTED", Integer.toString(userPosition));
+                	
                     
                     startSecondAct();
                 } }

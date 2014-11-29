@@ -1,0 +1,21 @@
+package fi.metropolia.challengedemo;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class AddUserActivity extends Activity {
+	Button btnComplete;
+	EditText etUserName;
+	String uName;
+	
+	
+	
+	 @Override
+	    protected void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        setContentView(R.layout.activity_add_user);
+	        
+	        
+}
+	 
+}

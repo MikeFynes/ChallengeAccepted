@@ -94,6 +94,12 @@ public class HandlerServlet extends HttpServlet {
         
         setMsg(dataHandler.getName());
         }
+        
+        else if(method.contentEquals("addUser")){
+            response.addHeader("backEnd", "SUCCESS");
+            dataHandler.setUserName(request.getParameter("uName"));
+            dataHandler.addUser();
+        }
        
        else if(method.contentEquals("findChallenge")){
            dataHandler.setId(Integer.parseInt(request.getParameter("id")));
@@ -180,8 +186,9 @@ public class HandlerServlet extends HttpServlet {
        }
        else if(method.contentEquals("challengeResponse")){
              response.addHeader("backEnd", "SUCCESS!");
+             dataHandler.setuId(Integer.parseInt(request.getParameter("User")));
            if(request.getParameter("status").contentEquals("1")){
-               dataHandler.setuId(Integer.parseInt(request.getParameter("User")));
+               
                dataHandler.challengeAccepter();
                response.addHeader("trueStory", "Challenge ACCEPTED");
            }

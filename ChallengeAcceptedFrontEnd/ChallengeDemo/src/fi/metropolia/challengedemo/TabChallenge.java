@@ -7,7 +7,6 @@ import java.util.List;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,7 @@ import android.widget.Toast;
  * Created by mike on 18/11/2014.
  */
 public class TabChallenge extends Fragment implements OnItemSelectedListener  {
-    LinearLayout myView;
+    LinearLayout myView, challengeLayout;
     TableLayout tableLayout;
     Button btnChallenge;
     
@@ -81,81 +80,27 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
     
     public List<String> readUsersFromDataBase(){
 
-        // FINDS TABLE LAYOUT
-        tableLayout = (TableLayout)myView.findViewById(R.id.user_list);
+       // ADDS USERS TO SPINNER LIST FROM DATABASE FETCHED LIST        
 
         
        int numRows = ((MainActivity)getActivity()).getUsersList().size();
   
        List<String> userSpinnerArray = new ArrayList<String>();
-       for(int i=0; i< numRows; i++){
+       int currentUser = ((MainActivity)getActivity()).getuId();
+       for(int i=0; i< numRows; i++)
+    
+       {
     	   final String dbUser = ((MainActivity)getActivity()).getUsersList().get(i).getName();
+    	   
+    	   if(currentUser != i){
     	   userSpinnerArray.add(dbUser);
+       }
        }
        
        return userSpinnerArray;
        
        
-       /* // outer for loop
-        for (int i=0; i< numRows; i++) {
-        	Context context = getActivity();
-            final TableRow row = new TableRow(context);
-            TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-
-            row.setLayoutParams(params);
-            row.setGravity(Gravity.CENTER | Gravity.BOTTOM);
-            row.setBackgroundColor(getResources().getColor(R.color.blue));
-            row.setPadding(1, 1, 1, 1);
-
-            
-            
-            
-
-            
-            
-            
-            // USERNAME COLUMN
-            TextView tv1 = new TextView(context);
-            tv1.setTextSize(40);
-            tv1.setPadding(25, 0, 25, 0);
-            
-     
-            
-            
-
-
-            final String dbUser = ((MainActivity)getActivity()).getUsersList().get(i).getName();
-            tv1.setText(dbUser);
-          
-            final int userId = ((MainActivity)getActivity()).getUsersList().get(i).getId();
-            row.setBackgroundDrawable(getResources().getDrawable(R.drawable.selection_changer));
-            row.addView(tv1);
-          
-            
-            row.setOnClickListener(new View.OnClickListener() {
-                  @Override
-                public void onClick(View v) {
-                	setUserToChallenge(userId);
-                
-                	  
-                
-                    
-                } }
-            )
-            ;
-            
-
-            TableRow rowGap = new TableRow(context);
-
-            rowGap.setLayoutParams(params);
-            rowGap.setGravity(Gravity.CENTER | Gravity.BOTTOM);
-            rowGap.setBackgroundColor(getResources().getColor(R.color.white));
-            rowGap.setPadding(1, 1, 1, 1);
-
-            tableLayout.addView(row);
-            tableLayout.addView(rowGap);
-            
-        }*/
+    
 
 
 
@@ -163,14 +108,19 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
 
 
         }
+    
+    public void readCategories(){
+    	
+    }
+    
 
     
     public void readChallengesFromDataBase(){
 
     	
     	   	
-    	 // FINDS TABLE LAYOUT
-        tableLayout = (TableLayout)myView.findViewById(R.id.challenge_list);
+    	 // FINDS TABLE LAYOUT TO PLACE CHALLENGES IN
+        tableLayout = (TableLayout) myView.findViewById(R.id.challenge_list);
 
         
        int numRows = ((MainActivity)getActivity()).getChallengesList().size();
@@ -180,7 +130,7 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
         // outer for loop
         for (int i=0; i< numRows; i++) {
         	Context context = getActivity();
-            final TableRow row = new TableRow(context);
+            TableRow row = new TableRow(context);
             TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
 
             row.setLayoutParams(params);
@@ -208,8 +158,9 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
           tv2.setText(points);
             final int dbchallId = ((MainActivity)getActivity()).getChallengesList().get(i).getId();
             row.setBackgroundDrawable(getResources().getDrawable(R.drawable.selection_changer));
+           
             row.addView(tv1);
-          
+            row.addView(tv2);
             
             row.setOnClickListener(new View.OnClickListener() {
                   @Override

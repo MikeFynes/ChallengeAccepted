@@ -9,12 +9,22 @@
     </h:head>
     <h:body>
         <h1>Users and Challenges</h1>
-                    
+        <h1>ADD CHALLENGE</h1>     
         <form action="HandlerServlet" method="post">
             <input type="hidden" name="method" value="addChallenge"/>
             <p>Challenge Name<br /> <input type="text" name="name" /></p>
             <p>Challenge Description<br /><textarea rows="4" cols="50" name="description"/></p>
             <p>Points for completion<br /><input type="text" name="points" /></p>
+            <input type="submit" />
+            
+            
+        </form>       
+        
+        <h1>ADD User</h1>     
+        <form action="HandlerServlet" method="post">
+            <input type="hidden" name="method" value="addUser"/>
+            <p>User Name<br /> <input type="text" name="uName" /></p>
+            
             <input type="submit" />
             
             

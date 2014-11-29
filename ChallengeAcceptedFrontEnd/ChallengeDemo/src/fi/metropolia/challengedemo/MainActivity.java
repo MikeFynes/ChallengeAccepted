@@ -3,8 +3,6 @@ package fi.metropolia.challengedemo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -53,20 +51,27 @@ public class MainActivity extends Activity implements AsyncResponse {
         challengesList = new ArrayList<Challenges>();
         
 
-       
+      
        asyncUserGrab.listener = this;
-       asyncUserGrab.execute("allUsers");
+          asyncUserGrab.execute("allUsers");
        usersList = new ArrayList<Users>();
        
-           
        
-        
-        
 
-        
-        ActionBar actionBar = getActionBar();
-   
-        String label1 = getResources().getString(R.string.tab_lbl_scoreboard);
+       
+       ActionBar actionBar = getActionBar();
+  
+       String label1 = getResources().getString(R.string.tab_lbl_welcome);
+
+       Fragment TF_welcome = new TabWelcome();
+       Tab welcomeTab = actionBar.newTab();
+       welcomeTab.setText(label1);
+       TListener t_welc = new TListener(TF_welcome);
+       welcomeTab.setTabListener(t_welc);
+       actionBar.addTab(welcomeTab);       
+       
+ 
+        label1 = getResources().getString(R.string.tab_lbl_scoreboard);
 
         Fragment TF_score = new TabScoreboard();
         Tab scoreBoardTab = actionBar.newTab();
@@ -123,12 +128,12 @@ public class MainActivity extends Activity implements AsyncResponse {
 
     public String checkChallName(int userEntry){
     	int challengeId =  usersList.get(userEntry).getCurrentChallenge();
-    	String challengeName = challengesList.get(challengeId).getName();
+    	String challengeName = challengesList.get(challengeId-1).getName();
         return challengeName;
     }
     public String checkChallDesc(int userEntry){
     	int challengeId =  usersList.get(userEntry).getCurrentChallenge();
-    	String challengeDesc = challengesList.get(challengeId).getDescription();
+    	String challengeDesc = challengesList.get(challengeId-1).getDescription();
         return challengeDesc;
     }
     

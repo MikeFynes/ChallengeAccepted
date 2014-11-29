@@ -3,7 +3,6 @@ package fi.metropolia.challengedemo;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by mike on 18/11/2014.
@@ -47,7 +45,7 @@ public class TabMyChallenges extends Fragment{
                 Button btn_complete = new Button(getActivity());
                 btn_complete.setText(R.string.btn_complete);
                 btn_complete.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
                 btn_complete.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
@@ -62,7 +60,7 @@ public class TabMyChallenges extends Fragment{
                 Button btn_accept = new Button(getActivity());
                 btn_accept.setText(R.string.btn_accept);
                 btn_accept.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
                 btn_accept.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
@@ -74,7 +72,7 @@ public class TabMyChallenges extends Fragment{
                 Button btn_decline = new Button(getActivity());
                 btn_decline.setText(R.string.btn_decline);
                 btn_decline.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
                 btn_decline.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {

@@ -8,21 +8,50 @@
         android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="@string/start_select_user"  />
-    <TableLayout 
-    android:layout_width="fill_parent"
+ 
+
+    <Spinner android:id="@+id/user_spinner"
+        android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/user_list">
-    
-</TableLayout>
-    <TextView 
+    />
+        <TextView 
         
         android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="@string/start_select_challenge"  />
+    android:text="@string/select_category"  />
+        <HorizontalScrollView android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    
+            <LinearLayout
+                android:id="@+id/category_selecter"
+                android:layout_width="wrap_content"
+    			android:layout_height="wrap_content" 
+   				 android:orientation="horizontal">
+   				 
+                
+   	</LinearLayout>
+        </HorizontalScrollView>
+    
+    
+    <TextView 
+       android:id="@+id/select_challenge" 
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+      />
     <TableLayout 
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/challenge_list">
+    android:id="@+id/challenge_list"
+    >
+            <TableRow    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+                <TextView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/challenge_title"  />
+                                <TextView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/challenge_points"  />
+            </TableRow>
     
 </TableLayout>
 

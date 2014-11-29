@@ -9,6 +9,7 @@ import Model.AAprojectusers;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -21,7 +22,7 @@ import javax.persistence.Persistence;
  */
 
 @Named(value = "dataHandler")
-@SessionScoped
+@Stateless
 public class DataHandler implements Serializable{
 
         private EntityManager em;
@@ -68,6 +69,30 @@ public class DataHandler implements Serializable{
         listChallengesByName();
         
     }
+        public void addUser(){
+        AAprojectusers newUser = new AAprojectusers();
+        newUser.setId(newUser.getId());
+        
+        newUser.setName(userName);
+        newUser.setChallengeActive(false);
+        newUser.setCurrentChallenge(0);
+        newUser.setNotified(false);
+        newUser.setTotalPoints(0);
+      
+        
+        t = em.getTransaction();
+        t.begin();
+        
+        
+        
+        em.persist(newUser);
+        t.commit();
+        listUsersByName();
+        
+    }
+    
+    
+    
     
     public void challengeUser(){
         AAprojectusers user = em.find(AAprojectusers.class, uId);
@@ -132,7 +157,7 @@ public class DataHandler implements Serializable{
         public void challengeRejecter(){
         AAprojectusers checker = em.find(AAprojectusers.class, uId);
         checker.setChallengeActive(false);
-        checker.setCurrentChallenge(null);
+        checker.setCurrentChallenge(0);
         t = em.getTransaction();
         t.begin();
         em.merge(checker);
