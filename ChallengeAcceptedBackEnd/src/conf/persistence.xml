@@ -4,6 +4,8 @@
     <jta-data-source>challenges</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <validation-mode>NONE</validation-mode>
-    <properties/>
+      <properties>
+      <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+    </properties>
   </persistence-unit>
 </persistence>

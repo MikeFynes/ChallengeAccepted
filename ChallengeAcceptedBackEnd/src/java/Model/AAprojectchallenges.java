@@ -31,8 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AAprojectchallenges.findByName", query = "SELECT a FROM AAprojectchallenges a WHERE a.name = :name"),
     @NamedQuery(name = "AAprojectchallenges.findByDescription", query = "SELECT a FROM AAprojectchallenges a WHERE a.description = :description"),
     @NamedQuery(name = "AAprojectchallenges.findByPoints", query = "SELECT a FROM AAprojectchallenges a WHERE a.points = :points"),
-    @NamedQuery(name = "AAprojectchallenges.orderByName", query = "SELECT a FROM AAprojectchallenges a ORDER BY a.name"),
-    @NamedQuery(name = "AAprojectchallenges.orderById", query = "SELECT a FROM AAprojectchallenges a ORDER BY a.id")
+    @NamedQuery(name = "AAprojectchallenges.findByCategory", query = "SELECT a FROM AAprojectchallenges a WHERE a.category = :category"),
+    @NamedQuery(name = "AAprojectchallenges.orderById", query = "SELECT c FROM AAprojectchallenges c ORDER BY c.id"),
+    @NamedQuery(name = "AAprojectchallenges.orderByName", query = "SELECT c FROM AAprojectchallenges c ORDER BY c.name")
 })
 public class AAprojectchallenges implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -55,6 +56,9 @@ public class AAprojectchallenges implements Serializable {
     @NotNull
     @Column(name = "points")
     private int points;
+    @Size(max = 15)
+    @Column(name = "category")
+    private String category;
 
     public AAprojectchallenges() {
     }
@@ -100,6 +104,14 @@ public class AAprojectchallenges implements Serializable {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Override

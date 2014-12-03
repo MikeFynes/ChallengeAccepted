@@ -31,9 +31,10 @@ public class DataHandler implements Serializable{
     private List<AAprojectchallenges> listChallenges;
     private List<AAprojectusers> listUsers;
     
+    
     // CHALLENGE LIST FIELDS
     private int id;
-    private String name, description;
+    private String name, description, category;
     private int points;
     
     
@@ -61,7 +62,7 @@ public class DataHandler implements Serializable{
         challenge.setName(name);
         challenge.setDescription(description);
         challenge.setPoints(points);
-        
+        challenge.setCategory(category);
         t = em.getTransaction();
         t.begin();
         em.persist(challenge);
@@ -284,6 +285,14 @@ public class DataHandler implements Serializable{
 
     public void setNotified(Boolean notified) {
         this.notified = notified;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
     
     

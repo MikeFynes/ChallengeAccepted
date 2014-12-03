@@ -27,7 +27,7 @@ public class HandlerServlet extends HttpServlet {
 
 
     
-  public ControlBean control;
+  
   public DataHandler dataHandler;
   private String msg, newMsg;
 
@@ -58,7 +58,12 @@ public class HandlerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html");
+
+PrintWriter out=response.getWriter();
+out.print("<html><body>");
+out.print("<b>hello simple servlet</b>");
+out.print("</body></html>");
     }
 
     /**
@@ -77,7 +82,7 @@ public class HandlerServlet extends HttpServlet {
 //      check  = control.isDataChecker();
      //   response.setContentLength(32);
         response.setContentType("text/html");
-        control = new ControlBean();
+        
         String method = request.getParameter("method");
         dataHandler = new DataHandler();
         PrintWriter out = response.getWriter();
@@ -90,6 +95,7 @@ public class HandlerServlet extends HttpServlet {
         dataHandler.setName(request.getParameter("name"));
         dataHandler.setDescription(request.getParameter("description"));
         dataHandler.setPoints(Integer.parseInt(request.getParameter("points")));
+        dataHandler.setCategory(request.getParameter("category"));
         dataHandler.addChallenges();
         
         setMsg(dataHandler.getName());
@@ -124,6 +130,7 @@ public class HandlerServlet extends HttpServlet {
                response.addHeader("cName" +Integer.toString(i) , item.getName());
               response.addHeader("cDesc" +Integer.toString(i) , item.getDescription());
               response.addHeader("cPoints" +Integer.toString(i), Integer.toString(item.getPoints())); 
+              response.addHeader("cCategory" +Integer.toString(i), item.getCategory());
                 System.out.print(response.containsHeader("cName"+Integer.toString(i)));    
            }
            
