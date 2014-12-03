@@ -2,7 +2,6 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="fi.metropolia.challengedemo.R.layout"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
-<fullyQualifiedTypeName name="fi.metropolia.challengedemo.R.color"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="android.widget.Spinner"/>
 <fullyQualifiedTypeName name="java.util.List"/>
@@ -17,4 +16,5 @@
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="fi.metropolia.challengedemo.R.id"/>
+<fullyQualifiedTypeName name="fi.metropolia.challengedemo.R.color"/>
 </qualifiedTypeNameHistroy>

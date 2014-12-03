@@ -17,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -31,6 +30,8 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
     LinearLayout myView, challengeLayout;
     TableLayout tableLayout;
     Button btnChallenge;
+    
+    
     
     int userToChallenge, challengeToSend;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -113,10 +114,11 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
     
     public void readCategories(){
     	 // FINDS TABLE LAYOUT TO PLACE CHALLENGES IN
+    	Context context = getActivity();
     	challengeLayout = (LinearLayout) myView.findViewById(R.id.category_selecter);
-
+	
        
-    	 
+		
     	
     	 String[] categoryList = getResources().getStringArray(R.array.categories);
     	
@@ -131,12 +133,12 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
        
         // outer for loop
         for (int i=0; i< numRows; i++) {
-        	Context context = getActivity();
+        	
         	
             
 
             // Challenge Name COLUMN
-            ImageButton tv1 = new ImageButton(context);
+            final ImageButton tv1 = new ImageButton(context);
             
             tv1.setPadding(25, 0, 25, 0);
             tv1.setImageDrawable(getResources().getDrawable(R.drawable.one));
@@ -156,7 +158,15 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
                 	  Toast.makeText(myView.getContext(), "Category is "+dbCat, Toast.LENGTH_LONG).show();
                 	  ((MainActivity)getActivity()).setCategory(dbCat);
                 	  readChallengesFromDataBase(dbCat);
-                
+                	  Boolean isActive = false;
+                	  isActive =! isActive;
+                	  if(isActive){
+                		  tv1.setBackgroundColor(getResources().getColor(R.color.blue));
+                		  
+                	  }
+                	  else{
+                		  tv1.setBackgroundColor(getResources().getColor(R.color.white));
+                	  }
                     
                 } }
             )
@@ -197,7 +207,7 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
         	if(dbChall.contentEquals(category)){
         		
         	
-        	TableRow row = new TableRow(context);
+        	final TableRow row = new TableRow(context);
             TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
 
             
@@ -229,13 +239,23 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
            
             row.addView(tv1);
             row.addView(tv2);
-            
+             
             row.setOnClickListener(new View.OnClickListener() {
                   @Override
                 public void onClick(View v) {
                 	  setChallengeToSend(dbchallId);
-                
+                	  Boolean isActive = false;
                 	  
+                	  
+                	  if(isActive){
+                		  row.setBackgroundColor(getResources().getColor(R.color.blue));
+                		  isActive = !isActive;
+                		  
+                	  }
+                	  else{
+                		  row.setBackgroundColor(getResources().getColor(R.color.white));
+                		  isActive = !isActive;
+                	  }
                 
                     
                 } }
