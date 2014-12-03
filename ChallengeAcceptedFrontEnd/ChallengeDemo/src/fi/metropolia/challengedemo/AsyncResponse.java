@@ -9,5 +9,5 @@ public interface AsyncResponse {
     // GRABBING USERS
 	void userGrabber(List<Users> output);
 	void challengeGrabber(List<Challenges> output);
-
+	void loadComplete();
 }

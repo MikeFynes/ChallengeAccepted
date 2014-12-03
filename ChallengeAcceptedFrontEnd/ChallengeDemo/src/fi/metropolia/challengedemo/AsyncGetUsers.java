@@ -42,7 +42,7 @@ public class AsyncGetUsers extends AsyncTask<String, Integer, List<Users>> {
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(
-                "http://10.0.2.2:8080/ChallengeAcceptedBackEnd/HandlerServlet");
+        		 "http://10.0.2.2:8080/ChallengeAcceptedBackEnd/HandlerServlet");
         Log.d("HTTP POST", "I CREATED A POST");
         Log.d("HTTP POST", valueIWantToSend);
         try {
@@ -120,6 +120,7 @@ public class AsyncGetUsers extends AsyncTask<String, Integer, List<Users>> {
     protected void onPostExecute(List<Users> result) {
        super.onPostExecute(result);
        listener.userGrabber(result);
+       listener.loadComplete();
        
     }
 }

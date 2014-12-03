@@ -38,10 +38,12 @@
         android:layout_width="match_parent"
     android:layout_height="wrap_content"
       />
+
+    
     <TableLayout 
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/challenge_list"
+     android:id="@+id/challenge_list"
     >
             <TableRow    android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
@@ -52,7 +54,8 @@
     android:layout_height="wrap_content"
     android:text="@string/challenge_points"  />
             </TableRow>
-    
+
+     
 </TableLayout>
 
     <Button

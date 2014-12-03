@@ -15,7 +15,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -36,7 +38,7 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
         myView = (LinearLayout) inflater.inflate(R.layout.tab_challenges, container, false);
         
         readUsersFromDataBase();
-        readChallengesFromDataBase();
+        readCategories();
         
         btnChallenge = (Button) myView.findViewById(R.id.btnChallenge);
         btnChallenge.setOnClickListener(new View.OnClickListener() {
@@ -110,12 +112,70 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
         }
     
     public void readCategories(){
+    	 // FINDS TABLE LAYOUT TO PLACE CHALLENGES IN
+    	challengeLayout = (LinearLayout) myView.findViewById(R.id.category_selecter);
+
+       
+    	 
     	
-    }
+    	 String[] categoryList = getResources().getStringArray(R.array.categories);
+    	
+    	
+    	
+    	
+       int numRows = categoryList.length;
+  
+       
+       
+        
+       
+        // outer for loop
+        for (int i=0; i< numRows; i++) {
+        	Context context = getActivity();
+        	
+            
+
+            // Challenge Name COLUMN
+            ImageButton tv1 = new ImageButton(context);
+            
+            tv1.setPadding(25, 0, 25, 0);
+            tv1.setImageDrawable(getResources().getDrawable(R.drawable.one));
+            
+
+                 
+            
+
+
+            final String dbCat = categoryList[i];
+            		
+            challengeLayout.addView(tv1);
+            
+            tv1.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                public void onClick(View v) {
+                	  Toast.makeText(myView.getContext(), "Category is "+dbCat, Toast.LENGTH_LONG).show();
+                	  ((MainActivity)getActivity()).setCategory(dbCat);
+                	  readChallengesFromDataBase(dbCat);
+                
+                    
+                } }
+            )
+            ;
+            
+
+            
+        }
+
+
+
+
+
+
+        }
     
 
     
-    public void readChallengesFromDataBase(){
+    public void readChallengesFromDataBase(String category){
 
     	
     	   	
@@ -124,15 +184,23 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
 
         
        int numRows = ((MainActivity)getActivity()).getChallengesList().size();
+
+    
+       
   
-        
+        int matchedRows = 0;
        
         // outer for loop
         for (int i=0; i< numRows; i++) {
         	Context context = getActivity();
-            TableRow row = new TableRow(context);
+        	final String dbChall = ((MainActivity)getActivity()).getChallengesList().get(i).getCategory();
+        	if(dbChall.contentEquals(category)){
+        		
+        	
+        	TableRow row = new TableRow(context);
             TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
 
+            
             row.setLayoutParams(params);
             row.setGravity(Gravity.CENTER | Gravity.BOTTOM);
             row.setBackgroundColor(getResources().getColor(R.color.blue));
@@ -151,7 +219,7 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
             
 
 
-            final String dbChall = ((MainActivity)getActivity()).getChallengesList().get(i).getName();
+            
             tv1.setText(dbChall);
             
             final String points = Integer.toString(((MainActivity)getActivity()).getChallengesList().get(i).getPoints());
@@ -185,7 +253,16 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
             tableLayout.addView(row);
             tableLayout.addView(rowGap);
             
+            matchedRows++;
         }
+
+        	
+        }
+        if(matchedRows == 0){
+        	Toast.makeText(myView.getContext(), "No challenges in "+category, Toast.LENGTH_LONG).show();
+        	
+        }
+    
 
 
 

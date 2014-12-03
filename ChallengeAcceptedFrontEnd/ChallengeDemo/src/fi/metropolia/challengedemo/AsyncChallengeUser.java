@@ -70,7 +70,7 @@ public class AsyncChallengeUser extends AsyncTask<Integer, Integer, String> {
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(
-                "http://10.0.2.2:8080/ChallengeAcceptedBackEnd/HandlerServlet");
+        		 "http://10.0.2.2:8080/ChallengeAcceptedBackEnd/HandlerServlet");
         Log.d("HTTP POST", "I CREATED A POST");
         String postUser = Integer.toString(getUserId());
         String postChallenge = Integer.toString(getChallId());

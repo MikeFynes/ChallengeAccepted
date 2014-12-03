@@ -10,15 +10,18 @@ class Challenges {
     private String name;
 
     private String description;
+    
+    private String category;
 
     private int points;
 
 
-    public Challenges(int id, int points, String name, String description){
+    public Challenges(int id, int points, String name, String description, String category){
     setId(id);
     setPoints(points);
     setName(name);
     setDescription(description);
+    setCategory(category);
 
     }
 
@@ -53,4 +56,15 @@ class Challenges {
     public void setDescription(String description) {
         this.description = description;
     }
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+    
+    
+    
 }

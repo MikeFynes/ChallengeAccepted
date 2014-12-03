@@ -3,6 +3,7 @@ package fi.metropolia.challengedemo;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -22,6 +23,8 @@ public class MainActivity extends Activity implements AsyncResponse {
 	    List<Users> usersList;
 	    
 	    
+	    
+	    String category;
 	    
 	 int uId, challId;
     @Override
@@ -159,6 +162,11 @@ public class MainActivity extends Activity implements AsyncResponse {
 	}
 	
 	
+
+	
+	
+	
+	
 	
 	
 	
@@ -189,6 +197,19 @@ public class MainActivity extends Activity implements AsyncResponse {
 	    	
 	    	return usersList;
 	    }
+	@Override
+	public void loadComplete() {
+		// TODO Auto-generated method stub
+		
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	
 
 	    
     

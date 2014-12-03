@@ -19,8 +19,7 @@ import android.util.Log;
 
 class AsyncGetChallenges extends AsyncTask<String, Integer, List<Challenges>> {
     public AsyncResponse delegate=null;
-    private int  challId, challPoints;
-    private String challName, challDesc;
+
     
    
     List<Challenges> challengesList;
@@ -45,7 +44,7 @@ class AsyncGetChallenges extends AsyncTask<String, Integer, List<Challenges>> {
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(
-                "http://10.0.2.2:8080/ChallengeAcceptedBackEnd/HandlerServlet");
+        		 "http://10.0.2.2:8080/ChallengeAcceptedBackEnd/HandlerServlet");
         Log.d("HTTP POST", "I CREATED A POST");
         Log.d("HTTP POST", valueIWantToSend);
         try {
@@ -69,20 +68,20 @@ class AsyncGetChallenges extends AsyncTask<String, Integer, List<Challenges>> {
                 if(response.containsHeader("challenges")){
                     challengesList = new ArrayList<Challenges>();
                     for(int i=0; i < Integer.parseInt(response.getFirstHeader("itemCount").getValue()); i++){
-                        challId = Integer.parseInt(response.getFirstHeader("cId"+Integer.toString(i)).getValue());
-                        challName = response.getFirstHeader("cName"+Integer.toString(i)).getValue();
-                        challDesc = response.getFirstHeader("cDesc"+Integer.toString(i)).getValue();
-                        challPoints =Integer.parseInt(response.getFirstHeader("cPoints"+Integer.toString(i)).getValue());
-                        
+                       int challId = Integer.parseInt(response.getFirstHeader("cId"+Integer.toString(i)).getValue());
+                       String challName = response.getFirstHeader("cName"+Integer.toString(i)).getValue();
+                       String challDesc = response.getFirstHeader("cDesc"+Integer.toString(i)).getValue();
+                       int challPoints =Integer.parseInt(response.getFirstHeader("cPoints"+Integer.toString(i)).getValue());
+                       String challCategory = response.getFirstHeader("cCategory"+Integer.toString(i)).getValue();
 
 
-                        Challenges nChallenges = new Challenges(challId, challPoints , challName , challDesc );
+                        Challenges nChallenges = new Challenges(challId, challPoints , challName , challDesc, challCategory );
                         challengesList.add(nChallenges);
                         
                         Log.d("CHALLENGES",   nChallenges.getName() +""
                         		+ " ID "+ Integer.toString(nChallenges.getId()) 
                         		+" DESCRIPTION "+ nChallenges.getDescription() 
-                        		+ " POINTS " + nChallenges.getPoints() );
+                        		+ " POINTS " + nChallenges.getPoints() + " CATEGORY " + nChallenges.getCategory() );
 
                     }
 

@@ -34,6 +34,8 @@ public class Start extends Activity implements View.OnClickListener, AsyncRespon
     TableLayout tableLayout;
     Button btnAddUser;
     
+    public static boolean userLoadFinished = false;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,7 @@ public class Start extends Activity implements View.OnClickListener, AsyncRespon
     
         
         
-
+        
         
         
         asyncUserGrab.execute("allUsers");
@@ -50,6 +52,7 @@ public class Start extends Activity implements View.OnClickListener, AsyncRespon
         
         try {
 			usersList = asyncUserGrab.get();
+			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,10 +72,12 @@ public class Start extends Activity implements View.OnClickListener, AsyncRespon
          } }
      )
      ;
+       
+       readUsersFromDataBase();
         
 
         
-        readUsersFromDataBase();
+        
         
 
         
@@ -160,7 +165,18 @@ public class Start extends Activity implements View.OnClickListener, AsyncRespon
         // FINDS TABLE LAYOUT
         tableLayout = (TableLayout)findViewById(R.id.user_list);
 
-
+/*while(userLoadFinished == false)
+{
+    try 
+    {
+        Log.d("USER LOADER", "Waiting for Users");
+        Thread.sleep(1000);
+    } 
+    catch (InterruptedException e) 
+    {
+        e.printStackTrace();
+    }
+}*/
        int numRows = usersList.size();
   
         
@@ -504,6 +520,13 @@ public class Start extends Activity implements View.OnClickListener, AsyncRespon
 			
 			// NOT USED BY THIS ACTIVITY
 			
+		}
+
+
+		@Override
+		public void loadComplete() {
+			// TODO Auto-generated method stub
+			userLoadFinished = true;
 		}
 
 }
