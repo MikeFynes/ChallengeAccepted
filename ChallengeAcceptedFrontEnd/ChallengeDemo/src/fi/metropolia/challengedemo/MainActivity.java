@@ -155,11 +155,7 @@ public class MainActivity extends Activity implements AsyncResponse {
     }
     
     
-	public void sendChallenge(int userEntry, int challengeId){
-		
-		new AsyncChallengeUser().execute(userEntry, challengeId);
-		
-	}
+
 	
 	
 

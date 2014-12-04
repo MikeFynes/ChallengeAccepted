@@ -13,5 +13,15 @@
     "location": "Z:\\AndroidApplication\\ChallengeDemo\\gen",
     "status": "UNRESOLVED",
     "error": "No class path info available for \u0027Z:\\AndroidApplication\\ChallengeDemo\\gen\u0027. Skipped."
+  },
+  "Z:\\ChallengeAccepted\\ChallengeAcceptedFrontEnd\\ChallengeDemo\\gen": {
+    "location": "Z:\\ChallengeAccepted\\ChallengeAcceptedFrontEnd\\ChallengeDemo\\gen",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027Z:\\ChallengeAccepted\\ChallengeAcceptedFrontEnd\\ChallengeDemo\\gen\u0027. Skipped."
+  },
+  "Z:\\ChallengeAccepted\\ChallengeAcceptedFrontEnd\\ChallengeDemo\\src": {
+    "location": "Z:\\ChallengeAccepted\\ChallengeAcceptedFrontEnd\\ChallengeDemo\\src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027Z:\\ChallengeAccepted\\ChallengeAcceptedFrontEnd\\ChallengeDemo\\src\u0027. Skipped."
   }
 }

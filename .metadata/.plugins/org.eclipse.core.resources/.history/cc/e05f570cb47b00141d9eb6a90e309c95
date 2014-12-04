@@ -1,0 +1,42 @@
+package fi.metropolia.challengedemo;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+
+public class ChallengeActivity extends Activity {
+
+	 int challId;
+	    @Override
+	    protected void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        
+	        setContentView(R.layout.activity_main);
+	        
+	        int userSelected;
+	        if (savedInstanceState == null) {
+	            Bundle extras = getIntent().getExtras();
+	            if(extras == null) {
+	            	Log.d("NO USERS!", "NO USERS SELECTED!");
+	            } else {
+	            	userSelected = extras.getInt("userID");
+	            	setChallId(userSelected);
+	            }
+	        } else {
+	        	userSelected= (Integer) savedInstanceState.getSerializable("userID");
+	        	setChallId(userSelected);
+	        }
+	
+	
+}
+		public int getChallId() {
+			return challId;
+		}
+		public void setChallId(int challId) {
+			this.challId = challId;
+		}
+	    
+	    
+	    
+	    
+}

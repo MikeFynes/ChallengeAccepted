@@ -8,7 +8,7 @@
       "qualifier": ""
     },
     "jarFileFingerprint": "7f972d2aa0fcb741fc84a9a10c98555f6f431a7a",
-    "jarFileModificationDate": "2014-11-29T11:27:19.982+02:00",
+    "jarFileModificationDate": "2014-12-04T14:08:20.137+02:00",
     "location": "C:\\Win\\android-sdk-windows\\platforms\\android-19\\android.jar",
     "javaRuntime": false
   },
@@ -23,6 +23,19 @@
     "jarFileFingerprint": "4a6be13368bb64c5a0b0460632d228a1a915f58f",
     "jarFileModificationDate": "2014-11-19T09:14:21+02:00",
     "location": "Z:\\AndroidApplication\\ChallengeDemo\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4a6be13368bb64c5a0b0460632d228a1a915f58f",
+    "jarFileModificationDate": "2014-12-04T14:01:09+02:00",
+    "location": "Z:\\ChallengeAccepted\\ChallengeAcceptedFrontEnd\\ChallengeDemo\\libs\\android-support-v4.jar",
     "javaRuntime": false
   }
 ]

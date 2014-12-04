@@ -1,0 +1,90 @@
+package fi.metropolia.challengedemo;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class ChallengeActivity extends Activity {
+	
+	 int uId,challId;
+	 String challengeName, challengeDesc;
+	 
+	 TextView title, desc;
+	 Button sendChallenge;
+	    @Override
+	    protected void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        
+	        setContentView(R.layout.activity_challenger);
+	        
+	        int userSelected, grabChallId;
+	        String grabChallName, grabChallDesc;
+	       
+	        if (savedInstanceState == null) {
+	            Bundle extras = getIntent().getExtras();
+	            if(extras == null) {
+	            	Log.d("NO USERS!", "NO USERS SELECTED!");
+	            } else {
+	            	userSelected = extras.getInt("userID");
+	            	grabChallId = extras.getInt("challID");
+	            	grabChallName = extras.getString("challName");
+	            	grabChallDesc = extras.getString("challDesc");
+	            	
+	            	
+	            	setuId(userSelected);
+	            	setChallId(grabChallId);
+	            	setChallengeName(grabChallName);
+	            	setChallengeDesc(grabChallDesc);
+	            	
+	            	
+	            }
+	        } else {
+	        	userSelected= (Integer) savedInstanceState.getSerializable("userID");
+	        	grabChallId= (Integer) savedInstanceState.getSerializable("challID");
+	        	grabChallName= (String) savedInstanceState.getSerializable("challName");
+	        	grabChallDesc= (String) savedInstanceState.getSerializable("challDesc");
+	        	setuId(userSelected);
+            	setChallId(grabChallId);
+            	setChallengeName(grabChallName);
+            	setChallengeDesc(grabChallDesc);
+	        }
+	        
+	        
+	        title = (TextView) findViewById(R.id.chall_title);
+	        title.setText(getChallengeName());
+	        
+	        desc = (TextView) findViewById(R.id.chall_desc);
+	        desc.setText(getChallengeDesc());
+	
+}
+		public int getChallId() {
+			return challId;
+		}
+		public void setChallId(int challId) {
+			this.challId = challId;
+		}
+		public String getChallengeName() {
+			return challengeName;
+		}
+		public void setChallengeName(String challengeName) {
+			this.challengeName = challengeName;
+		}
+		public String getChallengeDesc() {
+			return challengeDesc;
+		}
+		public void setChallengeDesc(String challengeDesc) {
+			this.challengeDesc = challengeDesc;
+		}
+		public int getuId() {
+			return uId;
+		}
+		public void setuId(int uId) {
+			this.uId = uId;
+		}
+	    
+	    
+	    
+	    
+}

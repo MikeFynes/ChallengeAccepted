@@ -6,7 +6,9 @@ import java.util.List;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,29 +43,7 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
         readUsersFromDataBase();
         readCategories();
         
-        btnChallenge = (Button) myView.findViewById(R.id.btnChallenge);
-        btnChallenge.setOnClickListener(new View.OnClickListener() {
-                  @Override
-                public void onClick(View v) {
-                	  if(userToChallenge != 0){
-                		  if(challengeToSend !=0){
-                			  ((MainActivity) getActivity()).sendChallenge(userToChallenge, challengeToSend);
-                    		  Toast.makeText(myView.getContext(), "CHALLENGE SENT!", Toast.LENGTH_LONG).show();  
-                		  }
-                		  else{
-                			  Toast.makeText(myView.getContext(), "No Challenge Selected", Toast.LENGTH_LONG).show();
-                		  }
-                	  }
-                	  else{
-                		  Toast.makeText(myView.getContext(), "No User Selected", Toast.LENGTH_LONG).show();
-                	  }
-                	  
-                	  
-                
-                    
-                } }
-            )
-            ;
+
         
         Spinner spinner = (Spinner) myView.findViewById(R.id.user_spinner);
         
@@ -75,6 +55,20 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
         
         
         return myView;
+    }
+    
+    
+    
+    public void issueChallenge(int uId, int challId, String challName, String challDesc){
+        Intent intent = new Intent(getActivity(), ChallengeActivity.class);
+        intent.putExtra("userID", uId);
+        intent.putExtra("challID", challId);
+        intent.putExtra("challName", challName);
+        intent.putExtra("challDesc", challDesc);
+        int challenger = ((MainActivity)getActivity()).getuId();
+        intent.putExtra("challengerId", challenger);
+        startActivity(intent);
+    	getActivity().finish();
     }
     
     
@@ -142,9 +136,9 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
             
             tv1.setPadding(25, 0, 25, 0);
             tv1.setImageDrawable(getResources().getDrawable(R.drawable.one));
-            
+            tv1.setBackgroundColor(getResources().getColor(R.color.white));
 
-                 
+             
             
 
 
@@ -153,19 +147,28 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
             challengeLayout.addView(tv1);
             
             tv1.setOnClickListener(new View.OnClickListener() {
-                  @Override
+            	Boolean isActive = false;  
+            	@Override
                 public void onClick(View v) {
                 	  Toast.makeText(myView.getContext(), "Category is "+dbCat, Toast.LENGTH_LONG).show();
                 	  ((MainActivity)getActivity()).setCategory(dbCat);
-                	  readChallengesFromDataBase(dbCat);
-                	  Boolean isActive = false;
-                	  isActive =! isActive;
+                	  
+                	  isActive = !isActive;
+                	  
                 	  if(isActive){
                 		  tv1.setBackgroundColor(getResources().getColor(R.color.blue));
+                		  readChallengesFromDataBase(dbCat);
+                		 
                 		  
                 	  }
                 	  else{
                 		  tv1.setBackgroundColor(getResources().getColor(R.color.white));
+                		  
+                		  
+                		  
+                		  
+                		  clearChallengesFromTable();
+                		  
                 	  }
                     
                 } }
@@ -182,6 +185,11 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
 
 
         }
+    
+    public void clearChallengesFromTable(){
+    	tableLayout =  (TableLayout) myView.findViewById(R.id.challenge_list);
+    	tableLayout.removeAllViews();
+    }
     
 
     
@@ -203,8 +211,8 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
         // outer for loop
         for (int i=0; i< numRows; i++) {
         	Context context = getActivity();
-        	final String dbChall = ((MainActivity)getActivity()).getChallengesList().get(i).getCategory();
-        	if(dbChall.contentEquals(category)){
+        	final String dbCat = ((MainActivity)getActivity()).getChallengesList().get(i).getCategory();
+        	if(dbCat.contentEquals(category)){
         		
         	
         	final TableRow row = new TableRow(context);
@@ -213,7 +221,7 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
             
             row.setLayoutParams(params);
             row.setGravity(Gravity.CENTER | Gravity.BOTTOM);
-            row.setBackgroundColor(getResources().getColor(R.color.blue));
+            
             row.setPadding(1, 1, 1, 1);
 
             // Challenge Name COLUMN
@@ -227,35 +235,40 @@ public class TabChallenge extends Fragment implements OnItemSelectedListener  {
             tv2.setPadding(25, 0, 25, 0);
                  
             
+            final String dbChall = ((MainActivity)getActivity()).getChallengesList().get(i).getName();
 
-
-            
+            final String dbChallDesc = ((MainActivity)getActivity()).getChallengesList().get(i).getDescription();
             tv1.setText(dbChall);
             
             final String points = Integer.toString(((MainActivity)getActivity()).getChallengesList().get(i).getPoints());
           tv2.setText(points);
             final int dbchallId = ((MainActivity)getActivity()).getChallengesList().get(i).getId();
-            row.setBackgroundDrawable(getResources().getDrawable(R.drawable.selection_changer));
+            
            
             row.addView(tv1);
             row.addView(tv2);
              
             row.setOnClickListener(new View.OnClickListener() {
-                  @Override
+                  
+            	Boolean challActive = false;
+            	@Override
                 public void onClick(View v) {
                 	  setChallengeToSend(dbchallId);
-                	  Boolean isActive = false;
                 	  
-                	  
-                	  if(isActive){
+                	  Log.d("CHALL CHOOSER BEFORE FLIP", "challActive: "+Boolean.toString(challActive));
+                	  challActive = !challActive;
+                	  if(challActive){
                 		  row.setBackgroundColor(getResources().getColor(R.color.blue));
-                		  isActive = !isActive;
+                		  issueChallenge(getUserToChallenge(), dbchallId, dbChall, dbChallDesc);
+                		  Log.d("CHALL CHOOSER AFTER FLIP TRUE", "challActive: "+Boolean.toString(challActive));  
                 		  
                 	  }
                 	  else{
                 		  row.setBackgroundColor(getResources().getColor(R.color.white));
-                		  isActive = !isActive;
+                		  Log.d("CHALL CHOOSER AFTER FLIP FALSE", "challActive: "+Boolean.toString(challActive));
                 	  }
+                	  
+                	  
                 
                     
                 } }
