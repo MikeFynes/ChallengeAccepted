@@ -46,7 +46,7 @@ return myView;
 
             row.setLayoutParams(params);
             row.setGravity(Gravity.CENTER | Gravity.BOTTOM);
-            row.setBackgroundColor(getResources().getColor(R.color.red));
+            row.setBackgroundColor(getResources().getColor(R.color.blue));
             row.setPadding(1, 1, 1, 1);
 
             // Challenge Name COLUMN

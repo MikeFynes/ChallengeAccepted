@@ -14,7 +14,7 @@ public class ChallengeActivity extends Activity {
 	 String challengeName, challengeDesc;
 	 
 	 TextView title, desc;
-	 Button btnChallenge;
+	 Button btnChallenge, btnBack;
 	    @Override
 	    protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
@@ -78,6 +78,20 @@ public class ChallengeActivity extends Activity {
 	                } }
 	            )
 	            ;
+	        
+	        btnBack = (Button) findViewById(R.id.btnBack);
+	        btnBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+              public void onClick(View v) {
+
+                	startSecondAct();
+              			finish();
+              	  
+              
+                  
+              } }
+          )
+          ;
 	        
 	
 }

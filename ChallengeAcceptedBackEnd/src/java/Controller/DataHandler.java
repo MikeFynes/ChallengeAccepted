@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -44,6 +43,7 @@ public class DataHandler implements Serializable{
     private Boolean challengeActive, notified;
     
     
+    private String challSuccess;
     
     /**
      * Creates a new instance of DataHandler
@@ -98,7 +98,11 @@ public class DataHandler implements Serializable{
     public void challengeUser(){
         AAprojectusers user = em.find(AAprojectusers.class, uId);
                 
-
+        if(user.getChallengeActive()){
+            System.out.println("ALREADY CHALLENGED");
+            setChallSuccess("ALREADY CHALLENGED!");
+        }
+        else{
         user.setCurrentChallenge(challId);
         user.setChallengeActive(true);
         
@@ -108,6 +112,9 @@ public class DataHandler implements Serializable{
         t.begin();
         em.merge(user);
         t.commit();
+        
+        setChallSuccess("SUCCESS!");
+        }
     }
     
     public void completeChallenge(){
@@ -293,6 +300,14 @@ public class DataHandler implements Serializable{
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getChallSuccess() {
+        return challSuccess;
+    }
+
+    public void setChallSuccess(String challSucces) {
+        this.challSuccess = challSucces;
     }
     
     

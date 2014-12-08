@@ -169,7 +169,7 @@ out.print("</body></html>");
            
            dataHandler.challengeUser();
            response.addHeader("backEnd", "SUCCESS!");
-               response.addHeader("trueStory", "Challenge SENT");
+               response.addHeader("trueStory", dataHandler.getChallSuccess());
            }
        
        else if(method.contentEquals("checkIfChallenged")){
