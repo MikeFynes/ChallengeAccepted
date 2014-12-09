@@ -1,11 +1,18 @@
 package fi.metropolia.challengedemo;
 
+//THIS CLASS CREATES A SIMPLE FORM ACTIVITY, THE FORM THEN EXITS THIS ACTIVITY ON COMPLETION AND TRIGGERS THE USER SELECTION MENU
+
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+
+
 
 public class AddUserActivity extends Activity {
 	Button btnComplete;
@@ -20,6 +27,8 @@ public class AddUserActivity extends Activity {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.activity_add_user);
 	        
+	        
+	        // THE ASYNC TASK CLASS ALLOWS A NEW USER TO BE ADDED TO THE BACKEND DATABASE
 	        asyncAddUser = new AsyncAddUser();
 	        
 	        etUserName = (EditText)findViewById(R.id.et_username);
@@ -35,6 +44,8 @@ public class AddUserActivity extends Activity {
 	            	else{
 	            		 Toast.makeText(myView.getContext(), "No User Name!", Toast.LENGTH_LONG).show();
 	            	}
+	            	
+	            	start();
 	            	finish();
 	           	   
 	                
@@ -44,5 +55,10 @@ public class AddUserActivity extends Activity {
 	        ;
 	        
 }
+	 
+	 public void start(){
+	    	Intent intent = new Intent(this, Start.class);
+	    	startActivity(intent);
+	 }
 	 
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    
+    <TextView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/welcome_title"
+    android:layout_weight="4" 
+    android:gravity="center"
+    android:textStyle="bold"
+    android:textSize="40sp"/>
+                         
+
+    
+    <TextView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/welcome_from"
+    android:layout_weight="1"
+    android:gravity="top"
+    android:textAlignment="center"
+     />
+    
+           <ImageView
+        android:contentDescription="@string/image_context"
+        
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
+        android:layout_weight="1"
+        android:src="@drawable/welcome_icon"
+         />
+
+</LinearLayout>

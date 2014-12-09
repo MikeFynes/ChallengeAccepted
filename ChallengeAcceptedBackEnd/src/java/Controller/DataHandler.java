@@ -192,6 +192,12 @@ public class DataHandler implements Serializable{
             public void listUsersById(){
                 listUsers = em.createNamedQuery("AAprojectusers.orderById").getResultList();
             }
+            
+            public void listUsersByPoints(){
+                listUsers = em.createNamedQuery("AAprojectusers.orderByPoints").getResultList();
+            }
+            
+            
     
 
     public List<AAprojectchallenges> getListChallenges() {
@@ -204,7 +210,7 @@ public class DataHandler implements Serializable{
     }
 
     public List<AAprojectusers> getListUsers() {
-        listUsersById();
+  
         return listUsers;
     }
 

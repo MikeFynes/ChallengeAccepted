@@ -6,13 +6,11 @@
          <item >Sport</item>
          <item >Social Media</item>
          <item >Dare</item>
-         <item >Lifestyle</item>
          <item >Chore</item>
          <item >Good deed</item>
+         <item >Lifestyle</item>
          <item >Misc</item>
-         
-         
-         
+
      </string-array>
     
 </resources>

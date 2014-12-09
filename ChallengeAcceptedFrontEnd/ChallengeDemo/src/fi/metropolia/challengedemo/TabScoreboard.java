@@ -1,3 +1,14 @@
+/*
+ * THE SCOREBOARD SHOWS AN ARRAY SORTED BY POINTS (DESCENDING) OF USERS
+ * 
+ * IN FUTURE VERSIONS THE IDEA WOULD BE THAT EACH USER IS CLICKABLE AND A MORE DETAILED
+ * SCORE IS SHOWN AS SEEN IN THE DESIGN DOCUMENTATION
+ * 
+ * THE FUNCTIONS WORK IN EXACTLY THE SAME MANNER AS THE START PAGE EXCEPT HERE THE POINTS OF EACH
+ * USER IS ALSO SHOWN
+ * 
+*/
+
 package fi.metropolia.challengedemo;
 
 import android.app.Fragment;
@@ -23,6 +34,8 @@ public class TabScoreboard extends Fragment {
             Bundle savedInstanceState) {
 myView = (LinearLayout) inflater.inflate(R.layout.tab_scoreboard, container, false);
 
+
+
 readScoresFromDb();
 
 
@@ -36,7 +49,10 @@ return myView;
 		tableLayout = (TableLayout) myView.findViewById(R.id.scoreboard);
 		
 		
-		int numRows = ((MainActivity)getActivity()).getUsersList().size();
+	
+		
+		
+		int numRows = ((MainActivity)getActivity()).getScoreboard().size();
 		       
 	    
         for (int i=0; i< numRows; i++) {
@@ -46,7 +62,7 @@ return myView;
 
             row.setLayoutParams(params);
             row.setGravity(Gravity.CENTER | Gravity.BOTTOM);
-            row.setBackgroundColor(getResources().getColor(R.color.blue));
+            //row.setBackgroundColor(getResources().getColor(R.color.actionbar));
             row.setPadding(1, 1, 1, 1);
 
             // Challenge Name COLUMN
@@ -62,10 +78,10 @@ return myView;
             
 
 
-            final String dbUser = ((MainActivity)getActivity()).getUsersList().get(i).getName();
+            final String dbUser = ((MainActivity)getActivity()).getScoreboard().get(i).getName();
             tv1.setText(dbUser);
             
-            final String points = Integer.toString(((MainActivity)getActivity()).getUsersList().get(i).getTotalPoints());
+            final String points = Integer.toString(((MainActivity)getActivity()).getScoreboard().get(i).getTotalPoints());
           tv2.setText(points);
            
            

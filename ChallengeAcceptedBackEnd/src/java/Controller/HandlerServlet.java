@@ -138,6 +138,13 @@ out.print("</body></html>");
        }
               else if(method.contentEquals("allUsers")){
             List<AAprojectusers> list = new ArrayList<AAprojectusers>();
+            if(request.getParameter("sort").contentEquals("points")){
+                dataHandler.listUsersByPoints();
+                
+            }
+            else{
+                dataHandler.listUsersById();
+            }
            list = dataHandler.getListUsers();
            response.addHeader("backEnd", "SUCCESS!");
            response.addHeader("users", "users");

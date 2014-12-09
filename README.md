@@ -1,10 +1,33 @@
 ChallengeAccepted
 =================
 
-Back end system for ChallengeAccepted Android application
 
-Back end found in ChallengeAcceptedBackEnd
+README!
 
-Front end found in ChallengeAcceptedFrontEnd
+TO DEPLOY IN TEST ENVIRONMENT:
+REQUIREMENTS:
+NETBEANS (WITH GLASSFISH)
+ECLIPSE
 
-HttpPostTest is a test example of how the POST functions will interact with backend
+STEP 1:
+OPEN NETBEANS AND DEPLOY TO GLASSFISH SERVER
+
+STEP 2:
+IN SERVICES REGISTER NEW MYSQL SERVER WITH BELOW DETAILS
+
+Server: mysql.metropolia.fi
+Port: DO NOT CHANGE (default is 3306)
+Username: michaef
+password: pancakeHorse2
+save password: TICKED
+
+STEP 3:
+OPEN ECLIPSE WITH WORKSPACE CHALLENGEACCEPTED
+
+STEP 4:
+RUN PROJECT NAMED ChallengeDemo
+
+STEP 5:
+ENJOY
+
+

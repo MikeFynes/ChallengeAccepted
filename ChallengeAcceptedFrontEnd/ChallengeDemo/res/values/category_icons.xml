@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="icons">
+        <item >@drawable/foodicon</item>
+        <item >@drawable/sportsicon</item>
+        <item >@drawable/socmedicon</item>
+        <item >@drawable/dareicon</item>
+        <item >@drawable/choreicon</item>
+        <item >@drawable/goodicon</item>
+        <item >@drawable/lifeicon</item>
+        <item >@drawable/miscicon</item>
+  </array>
+</resources>

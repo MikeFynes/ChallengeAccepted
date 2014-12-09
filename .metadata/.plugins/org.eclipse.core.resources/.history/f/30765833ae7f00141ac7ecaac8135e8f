@@ -1,0 +1,45 @@
+package fi.metropolia.challengedemo;
+
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class TabWelcome extends Fragment{
+    LinearLayout myView;
+    TextView tv_from, tv_title, tv_user;
+ 
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
+        myView = (LinearLayout) inflater.inflate(R.layout.my_challenges, container, false);
+        
+        
+        String from = ((MainActivity)getActivity()).getNavFrom();
+        tv_title = (TextView) myView.findViewById(R.id.welcome_title);
+        tv_from = (TextView) myView.findViewById(R.id.welcome_from);
+        tv_user = (TextView) myView.findViewById(R.id.welcome_user);
+        
+        if(from.contentEquals("start")){
+        	tv_title.setText(R.string.welcome_start);
+        	tv_user.setText(text);
+        }
+        else if(from.contentEquals("challengeResponse")){
+        	
+        }
+        else if(from.contentEquals("challengeComplete")){
+        	
+        }
+        else if(from.contentEquals("challengeSent")){
+        	
+        }
+        else{
+        	tv_title.setText("I HAVE NO IDEA WHERE YOU CAME FROM");
+        }
+        
+        return myView;
+    }
+
+}

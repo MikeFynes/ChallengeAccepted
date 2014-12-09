@@ -1,3 +1,13 @@
+/*THIS TASK ALLOWS A CHALLENGE TO BE COMPLETED
+ * 
+ * THE METHOD IS SENT TO THE BACKEND AND INFORMS THE BACKEND WHAT DATA TO EXPECT AND WHAT TO DO WITH IT
+ * 
+ * IN THIS CASE THE BACKEND EXPECTS ONLY A USER ID AS ALL THE OTHER DATA IS ALREADY STORED IN THE BACKEND
+ * 
+ * */
+
+
+
 package fi.metropolia.challengedemo;
 
 import java.io.IOException;
@@ -19,7 +29,7 @@ import android.util.Log;
 public class AsyncCompleteChallenge extends AsyncTask<Integer, Integer, String> {
     public AsyncResponse delegate=null;
     AsyncResponse listener;
-    private int userId, challId;
+    private int userId;
     
  
 

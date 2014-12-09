@@ -1,0 +1,25 @@
+/*
+ * THIS INTERFACE ALLOWS THE ASYNCTASKS THAT RETRIEVE INFORMATION FROM THE DATABASE
+ * 
+ * TO INTERACT WITH THE ACTIVITY CLASSES
+ * 
+ * 
+ * 
+ * 
+*/
+
+
+package fi.metropolia.challengedemo;
+
+import java.util.List;
+
+/**
+ * Created by mike on 18/11/2014.
+ */
+public interface AsyncResponse {
+    // GRABBING USERS
+	void userGrabber(List<Users> output);
+	void scoreboardGrabber(List<Users> output);
+	void challengeGrabber(List<Challenges> output);
+	void loadComplete();
+}

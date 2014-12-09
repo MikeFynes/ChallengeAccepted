@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+        <ImageView
+        android:contentDescription="@string/image_context"
+        android:id="@+id/Img1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="fitXY" />
+     
+        
+        <TextView
+        android:id="@+id/my_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/Img1"
+        android:gravity="center_horizontal"
+        />
+        
+        
+    <TextView
+        android:id="@+id/Tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/Img1"
+        android:layout_below="@id/my_status"
+        android:gravity="center_horizontal"
+        />
+    <TextView
+        android:id="@+id/Tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Img1"
+        android:gravity="center_horizontal"
+        />
+    <TextView
+        android:id="@+id/points_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/challenge_points"
+        android:layout_below="@id/Tv2"
+        android:gravity="center_horizontal"
+        android:padding="20dp"
+        />
+        <TextView
+        android:id="@+id/points_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/challenge_points"
+        android:layout_below="@id/points_title"
+        android:gravity="center_horizontal"
+        android:padding="20dp"
+        />
+        <LinearLayout
+            android:id="@+id/my_button_view"
+                    android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"></LinearLayout>
+
+</RelativeLayout>

@@ -1,3 +1,13 @@
+
+/*THIS CLASS ALLOWS A CHALLENGE THAT HAS BEEN RECEIVED TO BE ACCEPTED OR REJECTED
+ * 
+ * THE METHOD IS SENT TO THE BACKEND AND INFORMS THE BACKEND WHAT DATA TO EXPECT AND WHAT TO DO WITH IT
+ * 
+ * IN THIS CASE THE BACKEND EXPECTS A USER ID AND A CHALLENGE RESPONSE OF TRUE OR FALSE  (ACCEPT OR DECLINE)
+ * 
+ * */
+
+
 package fi.metropolia.challengedemo;
 
 import java.io.IOException;
@@ -16,19 +26,14 @@ import org.apache.http.message.BasicNameValuePair;
 import android.os.AsyncTask;
 import android.util.Log;
 
+
+
+
 public class AsyncChallengeResponse extends AsyncTask<Integer, Boolean, String> {
     public AsyncResponse delegate=null;
     AsyncResponse listener;
     private int userId, challResponse;
-    
-    
- 
-
    
-
-
-
-
 
 	@Override
     protected String doInBackground(Integer... params) {
@@ -98,7 +103,7 @@ public class AsyncChallengeResponse extends AsyncTask<Integer, Boolean, String> 
             Log.d("HTTP POST", "SENT THE POST");
 
             
-            
+            // AS THERE IS NO NEED FOR A RESPONSE AS LONG AS IT DOES NOT FAIL THERE IS NO NEED TO SLOW TASK DOWN WITH LOGS
 
 
 

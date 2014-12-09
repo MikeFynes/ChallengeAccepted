@@ -1,3 +1,12 @@
+/*THIS TASK ALLOWS ALL CHALLENGES STORED IN THE DATABASE TO BE RETRIEVED FROM THE BACKEND
+ * 
+ * THE METHOD IS SENT TO THE BACKEND AND INFORMS THE BACKEND WHAT DATA TO EXPECT AND WHAT TO DO WITH IT
+ * 
+ * IN THIS CASE THE BACKEND EXPECTS ONLY A METHOD WHICH IS PROVIDEd THROUGH THE EXECUTE STATEMENT
+ * 
+ * */
+
+
 package fi.metropolia.challengedemo;
 
 import java.io.IOException;
@@ -63,8 +72,14 @@ class AsyncGetChallenges extends AsyncTask<String, Integer, List<Challenges>> {
             if(reply !=null){
                 String postReply = reply.getValue();
                 Log.d("HTTP RESPONSE",  postReply);
-
-
+/*
+ * HERE THE RESPONSE IS VERY IMPORTANT
+ * 
+ * THIS FOR LOOP IS EFFECTIVELY A REVERSE OF THE FOR LOOP IN THE BACK END AS IT TAKES THE
+ * 			STRINGS -> OBJECT -> LIST
+ * 
+ * 
+*/
                 if(response.containsHeader("challenges")){
                     challengesList = new ArrayList<Challenges>();
                     for(int i=0; i < Integer.parseInt(response.getFirstHeader("itemCount").getValue()); i++){
@@ -123,8 +138,14 @@ class AsyncGetChallenges extends AsyncTask<String, Integer, List<Challenges>> {
     }
 
 
-	
-	
+	/*
+	 * THE LIST THAT IS COMPLETED AS PART OF THE POST RESPONSE ENDS UP HERE
+	 * 
+	 * THIS SENDS THE COMPLETED LIST THROUGH THE INTERFACE WHERE IT CAN THEN BE 
+	 * USED BY THE OTHER ACTIVITIES
+	 * 
+	 * 
+	*/
 
     protected void onPostExecute(List<Challenges> result) {
         listener.challengeGrabber(result);

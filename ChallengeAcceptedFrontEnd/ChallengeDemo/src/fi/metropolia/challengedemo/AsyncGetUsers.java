@@ -1,3 +1,16 @@
+
+
+/*THIS TASK ALLOWS THE USER LIST TO BE RETRIEVED IN A SIMPLE FASHION
+ * 
+ * THE METHOD IS SENT TO THE BACKEND AND INFORMS THE BACKEND WHAT DATA TO EXPECT AND WHAT TO DO WITH IT
+ * 
+ * IN THIS CASE THE BACKEND EXPECTS ONLY A METHOD WHICH IS PROVIDEd THROUGH THE EXECUTE STATEMENT
+ * 
+ * THE DIFFERENCE BETWEEN THIS AND THE SCOREBOARD IS THE SORTING METHOD EMPLOYED BY THE BACKEND ON THE DATA
+ * 
+ * */
+
+
 package fi.metropolia.challengedemo;
 
 import java.io.IOException;
@@ -50,7 +63,8 @@ public class AsyncGetUsers extends AsyncTask<String, Integer, List<Users>> {
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
             nameValuePairs.add(new BasicNameValuePair("method",
                     valueIWantToSend));
-            
+            nameValuePairs.add(new BasicNameValuePair("sort",
+                    "id"));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
             // Execute HTTP Post Request
@@ -62,7 +76,14 @@ public class AsyncGetUsers extends AsyncTask<String, Integer, List<Users>> {
                 String postReply = reply.getValue();
                 Log.d("HTTP RESPONSE",  postReply);
 
-
+                /*
+                 * HERE THE RESPONSE IS VERY IMPORTANT
+                 * 
+                 * THIS FOR LOOP IS EFFECTIVELY A REVERSE OF THE FOR LOOP IN THE BACK END AS IT TAKES THE
+                 * 			STRINGS -> OBJECT -> LIST
+                 * 
+                 * 
+                */
                 if(response.containsHeader("users")){
                     usersList = new ArrayList<Users>();
                     for(int i=0; i < Integer.parseInt(response.getFirstHeader("itemCount").getValue()); i++){
@@ -115,6 +136,16 @@ public class AsyncGetUsers extends AsyncTask<String, Integer, List<Users>> {
         	Log.d("POST FAIL", "NO POST SENT IOEXCEPTION");
         }
     }
+    
+	/*
+	 * THE LIST THAT IS COMPLETED AS PART OF THE POST RESPONSE ENDS UP HERE
+	 * 
+	 * THIS SENDS THE COMPLETED LIST THROUGH THE INTERFACE WHERE IT CAN THEN BE 
+	 * USED BY THE OTHER ACTIVITIES
+	 * 
+	 * 
+	*/
+    
     
     @Override
     protected void onPostExecute(List<Users> result) {

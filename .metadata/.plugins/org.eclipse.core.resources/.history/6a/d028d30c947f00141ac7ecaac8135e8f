@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="icons">
+        <item >goodicon</item>
+        <item >dareicon</item>
+        <item >choreicon</item>
+        <item >sporticon</item>
+        <item >socmedicon</item>
+        <item >foodicon</item>
+  
+</resources>

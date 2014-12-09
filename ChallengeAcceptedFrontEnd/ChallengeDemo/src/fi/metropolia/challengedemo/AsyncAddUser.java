@@ -1,4 +1,15 @@
+/*THIS CLASS ALLOWS A USER TO BE ADDED AND IS A SIMPLE ASYNCRONOUS HTTP POST TASK
+ * 
+ * THE METHOD IS SENT TO THE BACKEND AND INFORMS THE BACKEND WHAT DATA TO EXPECT AND WHAT TO DO WITH IT
+ * 
+ * */
+
+
+
+
 package fi.metropolia.challengedemo;
+
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +27,10 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
+
+
+
 
 class AsyncAddUser extends AsyncTask<String, Integer, String> {
     public AsyncResponse delegate=null;
@@ -61,14 +76,21 @@ class AsyncAddUser extends AsyncTask<String, Integer, String> {
 
 
 	public void postData(String valueIWantToSend) {
-        // Create a new HttpClient and Post Header
+		
+		// POST IS INITIALISED
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(
         		 "http://10.0.2.2:8080/ChallengeAcceptedBackEnd/HandlerServlet");
         Log.d("HTTP POST", "I CREATED A POST");
         Log.d("HTTP POST", valueIWantToSend);
         try {
-            // Add your data
+            /*HERE THE DATA WE WANT TO SEND IS ADD TO AN ARRAYLIST OF NAMED VALUE PAIRS
+             * THIS ALLOWS THE DATA TO BE TRANSMITTED AS A POST REQUEST IN THE FORMAT
+             * HEADER / VALUE
+             * 
+             * 
+             * */
+        	
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
             nameValuePairs.add(new BasicNameValuePair("method",
                     valueIWantToSend));
@@ -77,10 +99,17 @@ class AsyncAddUser extends AsyncTask<String, Integer, String> {
             
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-            // Execute HTTP Post Request
+            // Executes the HTTP Post Request
             HttpResponse response = httpclient.execute(httppost);
             Log.d("HTTP POST", "SENT THE POST");
 
+            
+            /*READING RESPONSE
+             * 
+             * RESPONSE IS READ AS STRINGS AS ALL POST DATA IS IN STRING FORMAT
+             * 
+             * 
+             * */
             Header reply = response.getFirstHeader("backEnd") ;
             if(reply !=null){
                 String postReply = reply.getValue();

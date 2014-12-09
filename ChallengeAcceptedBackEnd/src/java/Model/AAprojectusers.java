@@ -34,7 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AAprojectusers.findByTotalPoints", query = "SELECT a FROM AAprojectusers a WHERE a.totalPoints = :totalPoints"),
     @NamedQuery(name = "AAprojectusers.findByCurrentChallenge", query = "SELECT a FROM AAprojectusers a WHERE a.currentChallenge = :currentChallenge"),
     @NamedQuery(name = "AAprojectusers.orderByName", query = "SELECT a FROM AAprojectusers a ORDER BY a.name"),
-    @NamedQuery(name = "AAprojectusers.orderById", query = "SELECT a FROM AAprojectusers a ORDER BY a.id")})
+    @NamedQuery(name = "AAprojectusers.orderById", query = "SELECT a FROM AAprojectusers a ORDER BY a.id"),
+    @NamedQuery(name = "AAprojectusers.orderByPoints", query = "SELECT a FROM AAprojectusers a ORDER BY a.totalPoints DESC"),
+})
     
 public class AAprojectusers implements Serializable {
     private static final long serialVersionUID = 1L;

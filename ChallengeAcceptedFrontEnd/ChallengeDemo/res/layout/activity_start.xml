@@ -11,7 +11,10 @@
 
         <TextView android:text="@string/start_select_user" android:layout_width="wrap_content"
             android:layout_height="wrap_content" 
-        android:id="@+id/start_text" />
+        android:id="@+id/start_text"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:gravity="center" />
 <TableLayout 
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
