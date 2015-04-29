@@ -4,30 +4,15 @@ ChallengeAccepted
 
 README!
 
-TO DEPLOY IN TEST ENVIRONMENT:
-REQUIREMENTS:
-NETBEANS (WITH GLASSFISH)
-ECLIPSE
+Application is currently being rebuilt...
 
-STEP 1:
-OPEN NETBEANS AND DEPLOY TO GLASSFISH SERVER
+Future features: 
 
-STEP 2:
-IN SERVICES REGISTER NEW MYSQL SERVER WITH BELOW DETAILS
+Google profile login system
 
-Server: mysql.metropolia.fi
-Port: DO NOT CHANGE (default is 3306)
-Username: michaef
-password: pancakeHorse2
-save password: TICKED
+Improved performance
 
-STEP 3:
-OPEN ECLIPSE WITH WORKSPACE CHALLENGEACCEPTED
+Ability to add challenges
 
-STEP 4:
-RUN PROJECT NAMED ChallengeDemo
-
-STEP 5:
-ENJOY
-
+Groups
 
